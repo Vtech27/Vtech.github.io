@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from luvnestapp.com/?language=dutch by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Sep 2019 10:53:57 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <title>Huis . Luvnest</title>
+    <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta name="title" content="Huis . Luvnest">
+    <link rel="icon" href="themes/default/assets/img/icon.png" type="image/x-icon">
+<link href="themes/default/assets/css/materialize.min.css" type="text/css" id="materialize" rel="stylesheet" media="screen,projection"/><link href="themes/default/assets/css/plugins.css" type="text/css" id="plugins" rel="stylesheet" media="screen,projection"/><link href="themes/default/assets/css/style.css" type="text/css" id="style" rel="stylesheet" media="screen,projection"/><link href="themes/default/assets/css/overrides.css" type="text/css" id="overrides" rel="stylesheet" media="screen,projection"/>    <script>
+        window.site_url =  "index.html";
+        window.ajax = "aj/index.html";
+        window.theme_url = "themes/default/index.html";
+        window.worker_updateDelay = '4000';
+        window.media_path = "index.html";
+        window.current_route1 = "index.html";
+        window.current_route2 = "index.html";
+        window.current_route3 = "index.html";
+        window.current_route4 = "index.html";
+        window.current_page = "index";
+            </script>
+    <script src="themes/default/assets/js/functions.js" type="text/javascript" id="functions"></script>
+
+        <script>
+        function bindAjaxElement(item,e) {
+            if ($(item).attr('id') !== 'notificationbtn'){
+                $("#loader").css("display", "block");
+            }
+            var url ="";
+            var data_ajax = $(item).attr('data-ajax');
+            var data_ajax_post = $(item).attr('data-ajax-post');
+            var data_ajax_callback = $(item).attr('data-ajax-callback');
+
+            var data_replace_text = $(item).attr('data-replace-text');
+            var data_replace_dom = $(item).attr('data-replace-dom');
+            if (typeof data_replace_text !== typeof undefined && data_replace_text !== false) {
+                if (typeof data_replace_dom !== typeof undefined && data_replace_dom !== false) {
+                    $(data_replace_dom).html(data_replace_text);
+                }
+            }
+
+            window.itm = $(item).attr('id');
+
+            if (typeof data_ajax !== typeof undefined && data_ajax !== false) {
+                e.preventDefault();
+                url = $(item).attr('data-ajax');
+                window.current_page = url;
+
+                $.ajax({
+                    url: window.site_url + url,
+                    data:'url='+url+'&ajax=true',
+                    type: "POST",
+                    timeout: 60000,
+                    success: function(result) {
+                        $('body').css({'overflow':'inherit'});
+                        $("#loader").css("display","none");
+
+                        var is_user_logged_in = $( result ).filter( '.is_user_logged_in' ).html();
+                        if( typeof is_user_logged_in !== "undefined" ){
+                            if( is_user_logged_in !== "1" ){
+                                window.location.href = "login.html";
+                            }
+                        }
+                        var title = $( result ).filter( '.page_title' ).html();
+                        var page_name = $( result ).filter( '.page_name' ).html();
+                            window.current_page = page_name;
+
+                        if(page_name !== 'profile' ){
+                            $('meta[name=robots]').remove();
+                            $('meta[name=googlebot]').remove();
+                        }
+                        $('#container').html(result);
+                        window.history.pushState({state:'new'},'', window.site_url + url);
+
+
+                        $("html, body").animate({ scrollTop: 0 }, 150);
+                        custom_footer_js();
+
+                        document.title = decodeHtml( title );
+                        window.title = decodeHtml( title );
+                        document.getElementsByTagName('title')[0].innerHTML = decodeHtml( title );
+                        
+                        M.updateTextFields();
+
+                           window.onpopstate = function(event) {
+                               $(window).unbind('popstate');
+                               window.location.href = document.location;
+                           };
+
+                        event_runner(true);
+                    },
+                    error: function(result){
+                        console.warn(result);
+                    }
+                });
+            }
+
+            if (typeof data_ajax_post !== typeof undefined && data_ajax_post !== false) {
+                
+                url = window.ajax + $(item).attr('data-ajax-post');
+                var params = $(item).attr('data-ajax-params');
+                var callback = $(item).attr('data-ajax-callback');
+                var formData = new FormData();
+                var data_ajax_template = $(item).attr('data-ajax-template');
+
+                if (params !== ''){
+                    params.split("&").forEach(function(item) {
+                        var s = item.split("="), k = s[0], v = s[1];
+                        formData.append(k, decodeURIComponent(s[1]) );
+                    });
+                }
+
+                if (typeof data_ajax_template !== typeof undefined) {
+                    formData.append('data_ajax_template', data_ajax_template);
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(result) {
+
+                    }
+                }).done(function (result) {
+                    var fn = window[callback];
+                    if (typeof fn === "function") fn( result );
+                });
+            }
+
+            
+            if( typeof data_ajax_post === typeof undefined && typeof data_ajax === typeof undefined ){
+                $("#loader").css("display","none");
+            }
+
+        }
+        window.onload = function () {
+
+            $("body").on("click", "a,button,span", function(e) {
+                bindAjaxElement(this,e);
+            });
+
+            $(document).ajaxStart(function() {
+            }).ajaxSuccess(function() {
+                $("#loader").css("display","none");
+            });
+
+        };
+    </script>
+</head>
+<body class="index-page">
+    <div id="loader" class="dt_ajax_progress"></div>
+        <!-- Header not-logged-in -->
+    <nav role="navigation" id="nav-not-logged-in">
+        <div class="nav-wrapper container">
+            <div class="left header_logo">
+                <a id="logo-container" href="index.html" class="brand-logo"><img src="themes/default/assets/img/logo.png" /></a>
+            </div>
+            <ul class="right">
+                <li class="hide_mobi_login"><a href="login.html" data-ajax="/login" class="btn-flat waves-effect text-main">Log in</a></li>
+                <li class="hide_mobi_login"><a href="register.html" data-ajax="/register" class="btn-flat btn btn_primary waves-effect waves-light white-text">Registreren</a></li>
+                <div class="show_mobi_login">
+                    <a class="dropdown-trigger" href="#" data-target="log_in_dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#222" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" /></svg></a>
+                    <ul id="log_in_dropdown" class="dropdown-content">
+                        <li><a href="login.html" data-ajax="/login">Log in</a></li>
+                        <li><a href="register.html" data-ajax="/register">Registreren</a></li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <!-- End Header not-logged-in -->    <div id="container">
+        
+		<!-- Top Hero  -->
+		<div class="parallax-container header_bg parallax_bg">
+			<div class="section">
+				<div class="container">
+					<h1 class="header center">Ontmoet nieuwe en interessante mensen.</h1>
+					<div class="row center">
+						<h5 class="header col s12 light">toetreden Luvnest, waar je iemand kon ontmoeten, overal!</h5>
+					</div>
+					<div class="row center">
+						<a href="register.html" class="btn-large waves-effect waves-light btn_primary lighten-1 bold btn_round">Begin</a>&nbsp;&nbsp;&nbsp;
+						<a href="#how_it_work" class="smooth btn-large btn-flat bold">Meer weten</a>
+					</div>
+				</div>
+			</div>
+			<div class="parallax"><img src="themes/default/assets/img/dating.jpg" alt="Luvnest"></div>
+		</div>
+		<!-- End Top Hero  -->
+
+        <!-- Filters  -->
+		<div class="container">
+			<div class="section dt_filters bg_gradient">
+				<div class="row">
+					<div class="input-field col s2">
+						<select>
+							<option value="1" selected="selected">Mannetje</option>
+							<option value="2">Vrouw</option>
+						</select>
+						<label class="bold">ik ben een:</label>
+					</div>
+					<div class="input-field col s2">
+						<select>
+						<option value="1">Mannetje</option>
+							<option value="2" selected="selected">Vrouw</option>
+						</select>
+						<label class="bold">ik zoek een:</label>
+					</div>
+					<div class="input-field col s2">
+						<select>
+							<option value="18" label="18">18</option>
+							<option value="19" label="19">19</option>
+							<option value="20" label="20" selected="selected">20</option>
+							<option value="21" label="21">21</option>
+							<option value="22" label="22">22</option>
+							<option value="23" label="23">23</option>
+							<option value="24" label="24">24</option>
+							<option value="37" label="37">37</option>
+						</select>
+						<label class="bold">Tussen de leeftijden</label>
+					</div>
+					<div class="input-field col s2">
+						<select>
+							<option value="28" label="28">28</option>
+							<option value="29" label="29">29</option>
+							<option value="30" label="30" selected="selected">30</option>
+							<option value="31" label="31">31</option>
+							<option value="32" label="32">32</option>
+							<option value="33" label="33">33</option>
+							<option value="37" label="37">37</option>
+						</select>
+						<label class="bold">en</label>
+					</div>
+					<div class="col">
+						<a href="login.html" class="waves-effect waves-light btn-flat btn-large bold btn_glossy">Laten we beginnen</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Filters  -->
+
+        <!-- How it Works  -->
+		<div class="container">
+			<div class="section dt_how_work" id="how_it_work">
+				<div class="row">
+					<div class="col s12">
+						<div class="dt_heading_top_line"></div>
+						<h3 class="center-align">Hoe Luvnest Werken </h3>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block center">
+							<h2 class="valign-wrapper"><img src="themes/default/assets/img/how/create.svg" alt="Maak een account aan"></h2>
+							<h5 class="bold">Maak een account aan<div class="bg_number">1</div></h5>
+							<p>Registreer gratis & amp; creëer je mooie profiel.</p>
+						</div>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block center">
+							<h2 class="valign-wrapper"><img src="themes/default/assets/img/how/match.svg" alt="Vind overeenkomsten"></h2>
+							<h5 class="bold">Vind overeenkomsten<div class="bg_number">2</div></h5>
+							<p>Zoeken & amp; Maak verbinding met overeenkomsten die perfect zijn voor jou.</p>
+						</div>
+					</div>
+					<div class="col s12 m4">
+						<div class="icon-block center">
+							<h2 class="valign-wrapper"><img src="themes/default/assets/img/how/dating.svg" alt="Begin te daten"></h2>
+							<h5 class="bold">Begin te daten<div class="bg_number">3</div></h5>
+							<p>Begin met het voeren van gesprekken en date met je beste match.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End How it Works  -->
+
+		<!-- Testimonials  -->
+		<div class="parallax-container valign-wrapper parallax_bg">
+			<div class="section">
+				<div class="container">
+					<div class="row dt_tstm_usr">
+						<div class="col s12 dt_test_title">
+							<div class="dt_heading_top_line"></div>
+							<h3 class="center-align">Gebruikers houden van ons</h3>
+						</div>
+						<div class="carousel carousel-slider">
+    						<div class="carousel-item valign-wrapper" href="#one!">
+    							<div class="dt_testimonial_slide">
+    								<div class="slide_head">
+    									<img class="circle" src="themes/default/assets/img/review/test_1.jpg" alt="User 1">
+    									<h5>Gebruiker # 1</h5>
+    								</div>
+    								<p>Luvnest brings out the sense of adventure in me! The website is so easy to use and the possibility of meeting someone from another culture that relates to me is simply thrilling.</p>
+    							</div>
+    						</div>
+    						<div class="carousel-item valign-wrapper" href="#two!">
+    							<div class="dt_testimonial_slide">
+    								<div class="slide_head">
+    									<img class="circle" src="themes/default/assets/img/review/test_2.jpg" alt="User 1">
+    									<h5>Gebruiker # 2</h5>
+    								</div>
+    								<p>Luvnest brings out the sense of adventure in me! The website is so easy to use and the possibility of meeting someone from another culture that relates to me is simply thrilling.</p>
+    							</div>
+   		 					</div>
+    						<div class="carousel-item valign-wrapper" href="#three!">
+    							<div class="dt_testimonial_slide">
+    								<div class="slide_head">
+    									<img class="circle" src="themes/default/assets/img/review/test_1.jpg" alt="User 1">
+    									<h5>Gebruiker # 3</h5>
+    								</div>
+    								<p>Luvnest brings out the sense of adventure in me! The website is so easy to use and the possibility of meeting someone from another culture that relates to me is simply thrilling.</p>
+    							</div>
+    						</div>
+    						<div class="carousel-item valign-wrapper" href="#four!">
+    							<div class="dt_testimonial_slide">
+    								<div class="slide_head">
+    									<img class="circle" src="themes/default/assets/img/review/test_2.jpg" alt="User 1">
+    									<h5>Gebruiker # 4</h5>
+    								</div>
+    								<p>Luvnest brings out the sense of adventure in me! The website is so easy to use and the possibility of meeting someone from another culture that relates to me is simply thrilling.</p>
+    							</div>
+    						</div>
+  						</div>
+					</div>
+				</div>
+			</div>
+			<div class="parallax"><img src="themes/default/assets/img/testimonial_bg.jpg" alt="Testimonials Background"></div>
+		</div>
+		<!-- End Testimonials  -->
+
+        <!-- Features  -->
+		<div class="container">
+			<div class="section dt_features">
+				<div class="row">
+					<div class="col s12">
+						<div class="dt_heading_top_line"></div>
+						<h3 class="center-align">Waarom Luvnest het beste is</h3>
+					</div>
+					<div class="col s12 m4 feature_block_first">
+						<div class="icon-block center">
+							<h2 class="valign-wrapper"><span class="icon_wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12,10L8,4.4L9.6,2H14.4L16,4.4L12,10M15.5,6.8L14.3,8.5C16.5,9.4 18,11.5 18,14A6,6 0 0,1 12,20A6,6 0 0,1 6,14C6,11.5 7.5,9.4 9.7,8.5L8.5,6.8C5.8,8.1 4,10.8 4,14A8,8 0 0,0 12,22A8,8 0 0,0 20,14C20,10.8 18.2,8.1 15.5,6.8Z" /></svg></span></h2>
+							<h5 class="bold">Beste overeenkomst</h5>
+							<p>Op basis van uw locatie vinden we de beste en geschikte matches voor u.</p>
+						</div>
+					</div>
+					<div class="col s12 m4 feature_block_second">
+						<div class="icon-block center">
+							<h2 class="valign-wrapper"><span class="icon_wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20.24 12,20.92C9.89,20.24 8.08,18.85 6.87,17C6.53,16.5 6.24,16 6,15.47C6,13.82 8.71,12.47 12,12.47C15.29,12.47 18,13.79 18,15.47C17.76,16 17.47,16.5 17.13,17Z" /></svg></span></h2>
+							<h5 class="bold">Volledig veilig</h5>
+							<p>Uw account is veilig op Luvnest. Wij delen uw gegevens nooit met derden.</p>
+						</div>
+					</div>
+					<div class="col s12 m4 feature_block_third">
+						<div class="icon-block center">
+							<h2 class="valign-wrapper"><span class="icon_wrapper"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" /></svg></span></h2>
+							<h5 class="bold">100% privacy</h5>
+							<p>U hebt volledige controle over uw persoonlijke gegevens die u deelt.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Features  -->
+
+        		<!-- Get Started  -->
+		<div class="container-fluid bg_gradient">
+			<div class="container">
+				<div class="section">
+					<div class="row">
+						<div class="col s12 center-align dt_get_start">
+							<h4 class="white-text light">Maak hier verbinding met je perfecte Soulmate, op Luvnest.</h4>
+							<a href="register.html" class="waves-effect waves-light btn-flat btn-large bold btn_glossy">Begin</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Get Started  -->    </div>
+    <a href="javascript:void(0);" id="ajaxRedirect" style="visibility: hidden;display: none;"></a>
+    <!-- Footer  -->
+    <footer id="footer" class="page_footer">
+        <div class="footer-copyright">
+            <div class="container valign-wrapper">
+                <span>auteursrechten © 2019 Luvnest. Alle rechten voorbehouden.</span>
+				<span class="dt_fotr_spn">
+				<ul class="dt_footer_links">
+					<li><a href="about" data-ajax="/about">Over ons</a></li> - 
+					<li><a href="terms.html" data-ajax="/terms">Voorwaarden</a></li> -
+                    <li><a href="privacy.html" data-ajax="/privacy">Privacybeleid</a></li> -
+					<li><a href="contact.html" data-ajax="/contact">Contact</a></li> -
+				</ul>
+                <!-- Dropdown language -->
+<span class="dt_foot_langs">
+	<a class="dropdown-trigger" href="#" data-target="lang_dropdown">Taal <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7,15L12,10L17,15H7Z" /></svg></a>
+	<ul id="lang_dropdown" class="dropdown-content">
+		<li ><a href="indexed62.html?language=arabic">Arabic</a></li>
+		<li ><a href="index59a8.html?language=english">English</a></li>
+		<li style="background-color: #f1f2f3;"><a href="indexfb36.html?language=dutch">Dutch</a></li>
+		<li ><a href="index983d.html?language=french">French</a></li>
+		<li ><a href="index28d4.html?language=german">German</a></li>
+		<li ><a href="index6e5a.html?language=italian">Italian</a></li>
+		<li ><a href="indexb673.html?language=portuguese">Portuguese</a></li>
+		<li ><a href="indexb57d.html?language=russian">Russian</a></li>
+		<li ><a href="indexad1d.html?language=spanish">Spanish</a></li>
+		<li ><a href="indexac68.html?language=turkish">Turkish</a></li>
+	</ul>
+</span>				</span>
+            </div>
+        </div>
+    </footer>
+<!-- End Footer  -->        		
+	<!-- Scroll to top  -->
+    <a href="javascript:void(0);" class="btn-floating btn-large waves-effect waves-light dt_to_top bg_gradient"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg></a>
+    <!-- End Scroll to top  -->
+    <script src="themes/default/assets/js/jquery-2.1.1.min.js" type="text/javascript" id="jquery-2.1.1"/></script><script src="themes/default/assets/js/materialize.min.js" type="text/javascript" id="materialize"/></script><script src="themes/default/assets/js/script.js" type="text/javascript" id="script"/></script><script src="themes/default/assets/js/plugins.js" type="text/javascript" id="plugins"/></script>	    <script>
+    function interest_chipsUpdate(e, data) {
+        var chipsData = M.Chips.getInstance($('.interest_chips')).chipsData;
+        var len = chipsData.length;
+        var chipsValue = "";
+        var i;
+        for (i = 0; i < len; i++) { 
+            chipsValue += chipsData[i].tag + ",";
+        }
+
+        document.getElementsByName("interest")[0].value = chipsValue;
+    }
+    function deleteimage(img){
+        var src = $(img).parent().parent().find('.fancybox-image').attr('src'); // Looks for the *fancyboxed* image
+        var url = window.ajax + '/profile/delete_avater';
+        var formData = new FormData();
+            formData.append("url", src );
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            contentType:false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                if(data.status == 200) {
+                    parent.$.fancybox.close();
+                    $("#ajaxRedirect").attr("data-ajax",'/' + window.loggedin_user);
+                    $("#ajaxRedirect").click();
+                }
+            },
+            error: function (data) {
+                M.toast({html: data.responseJSON.message});
+            },
+        });
+    }
+    function custom_footer_js(){
+                $("#avater_profile_img").fancybox();
+        $.fancybox.defaults.hash = false;
+        $('[data-fancybox="gallery"]').fancybox({
+            closeExisting: false,
+            buttons : [
+                'del',
+                'zoom',
+                'slideShow',
+                'thumbs',
+                'close'
+            ]
+        });
+
+
+        $('.sidenav').sidenav();
+    	$('.parallax').parallax();
+		$('select').formSelect();
+        $(document).ready(function(){
+		    $('.dt_tstm_usr .carousel.carousel-slider,.carousel.carousel-slider').carousel({fullWidth: true,indicators: true});
+        });
+		setInterval(function(){
+			$('.dt_tstm_usr .carousel.carousel-slider').carousel('next');
+		}, 7000);
+        $('.dropdown-trigger').dropdown();
+        $('.modal').modal();
+
+		$('.tooltipped').tooltip();
+		$('.collapsible').collapsible();
+
+        var maxdate = new Date();
+            maxdate.setDate(maxdate.getDate() - 6574);
+
+        // Basic Info Step 2
+        var dt = $('.user_bday').datepicker({
+            yearRange: [1947, 2010],
+            container: 'body',
+            format: 'yyyy-mm-dd',
+            maxDate: maxdate
+        });
+        if(typeof dt[0] !== "undefined") {
+            if (dt[0].value !== '0000-00-00' || dt[0].value !== '') {
+                $('.user_bday').datepicker('setDate', dt[0].value);
+            } else {
+                var d = new Date();
+                d.setDate(d.getDate() - 6574);
+                $('.user_bday').datepicker('setDate', d);
+            }
+        }
+        if (typeof dt[0] !== "undefined" && dt[0].value == '') {
+            var dat = new Date();
+            dat.setDate(dat.getDate() - 6574);
+            $('.datepicker').datepicker('setDate', dat);
+        }
+        // Settings
+		$('.interest_chips').chips({
+			placeholder: 'Voer een tag in en druk op Enter',
+			secondaryPlaceholder: '+ Tag, druk op Enter om meer toe te voegen',
+			onChipDelete: function (e, data) { interest_chipsUpdate(e, data) },
+        	onChipAdd: function (e, data) { interest_chipsUpdate(e, data) }
+        });
+        if ( $('#interest_entry_profile').length ){
+			var chips = $('#interest_entry_profile').val();
+			var chips_array = chips.split(',');
+			var i;
+			for (i = 0; i < chips_array.length; i++) { 
+				$('.interest_chips').chips('addChip', {tag: chips_array[i]});
+			}
+		}
+    	jQuery(document).ready(function() {jQuery('.custom_fixed_element').theiaStickySidebar({additionalMarginTop: 10});});
+        $("form").submit(function(e) {
+            var form = $(this);
+            var url = window.ajax + form.attr('action');
+            var button_text = form.find(':submit span').text();
+
+            form.find(':submit').addClass( 'disabled' );
+            form.find(':submit span').text( 'Bezig met laden..' );
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form.serialize(),
+                success: function(data){
+                    form.find(':submit').removeClass( 'disabled' );
+                    form.find(':submit span').text( button_text );
+                    if( typeof data.message !== "undefined" ){
+                        form.find( '.alert-danger' ).html( '' ).hide();
+                        form.find( '.alert-success' ).html( data.message ).fadeIn( "fast" );
+                        setTimeout(() => {
+                            form.find( '.alert-success' ).fadeOut( "fast" );
+                        }, 3000);
+                    }else{
+                        form.find( '.alert-danger' ).html( 'Error while submitting form.').fadeIn( "fast" );
+                        form.find( '.alert-success' ).html( '' ).hide();
+                        setTimeout(() => {
+                            form.find( '.alert-danger' ).fadeOut( "fast" );
+                        }, 3000);
+                    }
+                    if( typeof(data.updateDom) !== 'undefined' ){
+                        if( typeof(data.updateDom.selector) !== 'undefined' && typeof(data.updateDom.attributes) !== 'undefined' ){
+                            $.each(data.updateDom.attributes, function(index, value) {
+                                console.log(data.updateDom.selector,index,value);
+                                $(data.updateDom.selector).attr(index,value);
+                            });
+                        }
+                    }
+                    if ( typeof(data.cookies) !== 'undefined' ){
+                        var date = new Date();
+                            date.setTime(date.getTime()+(10 * 365 * 24 * 60 * 60 * 1000 ) );
+                            $.each(data.cookies, function(index, value) {
+                                document.cookie = index + "=" + value + "; expires=" + date.toGMTString() + "; path=/";
+                            });
+                    }
+                    if ( typeof(data.remove_cookies) !== 'undefined' ){
+                        $.each(data.remove_cookies, function(index, value) {
+                            document.cookie = index+"=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+                        });
+                    }
+                    if( typeof(data.url) !== 'undefined' ){
+                        form.find(':submit').addClass( 'disabled' );
+                        setTimeout(() => {
+                            window.location = data.url;
+                        }, 2000);
+                    }
+                    if( typeof(data.ajaxRedirect) !== 'undefined' ){
+                        form.find(':submit').addClass( 'disabled' );
+                        setTimeout(() => {
+                            $("#ajaxRedirect").attr("data-ajax", data.ajaxRedirect);
+                            $("#ajaxRedirect").click();
+                        }, 1000);
+                    }
+                    M.updateTextFields();
+                    $("html, body").animate({ scrollTop: 0 }, 150);
+                },
+                error: function (data) {
+                    form.find( '.alert-success' ).html( '' ).hide();
+                    form.find( '.alert-danger' ).html( data.responseJSON.message ).fadeIn( "fast" );
+                    setTimeout(() => {
+                        form.find( '.alert-danger' ).fadeOut( "fast" );
+                    }, 5000);
+
+                    form.find(':submit').removeClass( 'disabled' );
+                    form.find(':submit span').text( button_text );
+                },
+            });
+
+            e.preventDefault();
+        });
+
+        // stripe
+        (function($){
+            $(function(){
+                var handler = null;
+                $( document ).on( 'click', '#stripe_credit_btn', function(e) {
+                    if( handler !== null ) {
+                        handler.open({
+                            name: 'Luvnest',
+                            description: getDescription(),
+                            currency: 'USD',
+                            amount: getPrice() * 100,
+                            opened: function () {
+                                $('#stripe_credit').addClass('disabled');
+                                $('#stripe_credit').attr('disabled', true);
+                            },
+                            closed: function () {
+                                //document.location = window.site_url + '/credit';
+                                $('#stripe_credit').removeClass('disabled');
+                                $('#stripe_credit').attr('disabled', false);
+                            }
+                        });
+                        e.preventDefault();
+                    }
+                });
+                $( document ).on( 'click', '#stripe_credit', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    if (typeof StripeCheckout == 'undefined'){
+                        $('#stripe_credit').addClass('disabled');
+                        $('#stripe_credit').attr('disabled', true);
+                        var script = document.createElement('script');
+                            script.src = '../checkout.stripe.com/checkout.js';
+                            script.type = 'text/javascript';
+                            script.onload = script.onreadystatechange = function() {
+                                if ( !this.readyState || this.readyState == "loaded" || this.readyState == "complete" ) {
+                                    if (typeof StripeCheckout !== 'undefined'){
+                                        handler = StripeCheckout.configure({
+                                            key: '',
+                                            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                                            locale: 'english',
+                                            token: function (token) {
+                                                $.post(window.ajax + 'stripe/handle', {
+                                                    stripeToken: token.id,
+                                                    description: getDescription(),
+                                                    price: getPrice(),
+                                                    payType: 'credits'
+                                                }, function (data) {
+                                                    if (data.status == 200) {
+                                                        $('#credit_amount').html(data.credit_amount);
+                                                        //document.location = window.site_url + data.location;
+                                                        $("#btnProSuccess").attr("data-ajax", data.location);
+                                                        $("#btnProSuccess").click();
+                                                    } else {
+                                                        $('.modal-body').html('<i class="fa fa-spin fa-spinner"></i> Betaling geweigerd ');
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        $('#stripe_credit_btn').trigger('click');
+                                    }
+                                }
+                            }
+                            let head  = document.getElementsByTagName('head')[0];
+                                head.appendChild(script);
+                    }else{
+                        $('#stripe_credit_btn').trigger('click');
+                    }
+                });
+                $( document ).on( 'click', '#stripe_pro_btn', function(e) {
+                    if( handler !== null ) {
+                        handler.open({
+                            name: 'Luvnest',
+                            description: getDescription(),
+                            currency: 'USD',
+                            amount: getPrice() * 100,
+                            opened: function () {
+                                $('#stripe_pro').addClass('disabled');
+                                $('#stripe_pro').attr('disabled', true);
+                            },
+                            closed: function () {
+                                $('#stripe_pro').removeClass('disabled');
+                                $('#stripe_pro').attr('disabled', false);
+                            }
+                        });
+                        e.preventDefault();
+                    }
+                });
+                $( document ).on( 'click', '#stripe_pro', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    if (typeof StripeCheckout == 'undefined'){
+                        $('#stripe_pro').addClass('disabled');
+                        $('#stripe_pro').attr('disabled', true);
+                        var script = document.createElement('script');
+                        script.src = '../checkout.stripe.com/checkout.js';
+                        script.type = 'text/javascript';
+                        script.onload = script.onreadystatechange = function() {
+                            if ( !this.readyState || this.readyState == "loaded" || this.readyState == "complete" ) {
+                                if (typeof StripeCheckout !== 'undefined'){
+                                    handler = StripeCheckout.configure({
+                                        key: '',
+                                        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                                        locale: 'english',
+                                        token: function (token) {
+                                            $.post(window.ajax + 'stripe/handle', {
+                                                stripeToken: token.id,
+                                                description: getDescription(),
+                                                price: getPrice(),
+                                                payType: 'membership'
+                                            }, function (data) {
+                                                if (data.status == 200) {
+                                                    $("#btnProSuccess").attr("data-ajax", data.location);
+                                                    $("#btnProSuccess").click();
+                                                } else {
+                                                    $('.modal-body').html('<i class="fa fa-spin fa-spinner"></i> Betaling geweigerd ');
+                                                }
+                                            });
+                                        }
+                                    });
+                                    $('#stripe_pro_btn').trigger('click');
+                                }
+                            }
+                        }
+                        let head  = document.getElementsByTagName('head')[0];
+                        head.appendChild(script);
+                    }else{
+                        $('#stripe_pro_btn').trigger('click');
+                    }
+                });
+
+            });
+        })(jQuery);
+    }
+    custom_footer_js();
+    $(window).on("popstate", function (event) {
+        $(window).unbind('popstate');
+        location.reload();
+    });
+
+    </script>    	
+	<script type="text/javascript">
+		$(document).on('click', '.find_matches_cont > .row > .col.l3 .dt_sections [data-ajax]', function() {
+			$('body').removeClass('side_open');
+		});
+		</script>
+
+    
+</body>
+
+<!-- Mirrored from luvnestapp.com/?language=dutch by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Sep 2019 10:53:57 GMT -->
+</html>

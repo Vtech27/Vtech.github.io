@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from luvnestapp.com/terms?language=portuguese by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Sep 2019 10:54:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <title>Termos de uso . Luvnest</title>
+    <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta name="title" content="Termos de uso . Luvnest">
+    <link rel="icon" href="themes/default/assets/img/icon.png" type="image/x-icon">
+<link href="themes/default/assets/css/materialize.min.css" type="text/css" id="materialize" rel="stylesheet" media="screen,projection"/><link href="themes/default/assets/css/plugins.css" type="text/css" id="plugins" rel="stylesheet" media="screen,projection"/><link href="themes/default/assets/css/style.css" type="text/css" id="style" rel="stylesheet" media="screen,projection"/><link href="themes/default/assets/css/overrides.css" type="text/css" id="overrides" rel="stylesheet" media="screen,projection"/>    <script>
+        window.site_url =  "index.html";
+        window.ajax = "aj/index.html";
+        window.theme_url = "themes/default/index.html";
+        window.worker_updateDelay = '4000';
+        window.media_path = "index.html";
+        window.current_route1 = "/terms";
+        window.current_route2 = "index.html";
+        window.current_route3 = "index.html";
+        window.current_route4 = "index.html";
+        window.current_page = "terms";
+            </script>
+    <script src="themes/default/assets/js/functions.js" type="text/javascript" id="functions"></script>
+
+        <script>
+        function bindAjaxElement(item,e) {
+            if ($(item).attr('id') !== 'notificationbtn'){
+                $("#loader").css("display", "block");
+            }
+            var url ="";
+            var data_ajax = $(item).attr('data-ajax');
+            var data_ajax_post = $(item).attr('data-ajax-post');
+            var data_ajax_callback = $(item).attr('data-ajax-callback');
+
+            var data_replace_text = $(item).attr('data-replace-text');
+            var data_replace_dom = $(item).attr('data-replace-dom');
+            if (typeof data_replace_text !== typeof undefined && data_replace_text !== false) {
+                if (typeof data_replace_dom !== typeof undefined && data_replace_dom !== false) {
+                    $(data_replace_dom).html(data_replace_text);
+                }
+            }
+
+            window.itm = $(item).attr('id');
+
+            if (typeof data_ajax !== typeof undefined && data_ajax !== false) {
+                e.preventDefault();
+                url = $(item).attr('data-ajax');
+                window.current_page = url;
+
+                $.ajax({
+                    url: window.site_url + url,
+                    data:'url='+url+'&ajax=true',
+                    type: "POST",
+                    timeout: 60000,
+                    success: function(result) {
+                        $('body').css({'overflow':'inherit'});
+                        $("#loader").css("display","none");
+
+                        var is_user_logged_in = $( result ).filter( '.is_user_logged_in' ).html();
+                        if( typeof is_user_logged_in !== "undefined" ){
+                            if( is_user_logged_in !== "1" ){
+                                window.location.href = "login.html";
+                            }
+                        }
+                        var title = $( result ).filter( '.page_title' ).html();
+                        var page_name = $( result ).filter( '.page_name' ).html();
+                            window.current_page = page_name;
+
+                        if(page_name !== 'profile' ){
+                            $('meta[name=robots]').remove();
+                            $('meta[name=googlebot]').remove();
+                        }
+                        $('#container').html(result);
+                        window.history.pushState({state:'new'},'', window.site_url + url);
+
+
+                        $("html, body").animate({ scrollTop: 0 }, 150);
+                        custom_footer_js();
+
+                        document.title = decodeHtml( title );
+                        window.title = decodeHtml( title );
+                        document.getElementsByTagName('title')[0].innerHTML = decodeHtml( title );
+                        
+                        M.updateTextFields();
+
+                           window.onpopstate = function(event) {
+                               $(window).unbind('popstate');
+                               window.location.href = document.location;
+                           };
+
+                        event_runner(true);
+                    },
+                    error: function(result){
+                        console.warn(result);
+                    }
+                });
+            }
+
+            if (typeof data_ajax_post !== typeof undefined && data_ajax_post !== false) {
+                
+                url = window.ajax + $(item).attr('data-ajax-post');
+                var params = $(item).attr('data-ajax-params');
+                var callback = $(item).attr('data-ajax-callback');
+                var formData = new FormData();
+                var data_ajax_template = $(item).attr('data-ajax-template');
+
+                if (params !== ''){
+                    params.split("&").forEach(function(item) {
+                        var s = item.split("="), k = s[0], v = s[1];
+                        formData.append(k, decodeURIComponent(s[1]) );
+                    });
+                }
+
+                if (typeof data_ajax_template !== typeof undefined) {
+                    formData.append('data_ajax_template', data_ajax_template);
+                }
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(result) {
+
+                    }
+                }).done(function (result) {
+                    var fn = window[callback];
+                    if (typeof fn === "function") fn( result );
+                });
+            }
+
+            
+            if( typeof data_ajax_post === typeof undefined && typeof data_ajax === typeof undefined ){
+                $("#loader").css("display","none");
+            }
+
+        }
+        window.onload = function () {
+
+            $("body").on("click", "a,button,span", function(e) {
+                bindAjaxElement(this,e);
+            });
+
+            $(document).ajaxStart(function() {
+            }).ajaxSuccess(function() {
+                $("#loader").css("display","none");
+            });
+
+        };
+    </script>
+</head>
+<body class="terms-page">
+    <div id="loader" class="dt_ajax_progress"></div>
+        <!-- Header not-logged-in -->
+    <nav role="navigation" id="nav-not-logged-in">
+        <div class="nav-wrapper container">
+            <div class="left header_logo">
+                <a id="logo-container" href="index.html" class="brand-logo"><img src="themes/default/assets/img/logo.png" /></a>
+            </div>
+            <ul class="right">
+                <li class="hide_mobi_login"><a href="login.html" data-ajax="/login" class="btn-flat waves-effect text-main">Entrar</a></li>
+                <li class="hide_mobi_login"><a href="register.html" data-ajax="/register" class="btn-flat btn btn_primary waves-effect waves-light white-text">registo</a></li>
+                <div class="show_mobi_login">
+                    <a class="dropdown-trigger" href="#" data-target="log_in_dropdown"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#222" d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" /></svg></a>
+                    <ul id="log_in_dropdown" class="dropdown-content">
+                        <li><a href="login.html" data-ajax="/login">Entrar</a></li>
+                        <li><a href="register.html" data-ajax="/register">registo</a></li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </nav>
+    <!-- End Header not-logged-in -->    <div id="container">
+        <!-- Terms  -->
+<style>
+@media (max-width: 1024px){
+.dt_slide_menu {
+	display: none;
+}
+nav .header_user {
+	display: block;
+}
+}
+</style>
+<div class="container dt_terms">
+    <div class="row">
+        <div class="col s12 m4 l3">
+            <div class="dt_terms_sidebar">
+                <ul>
+                    <li class="active"><a href="terms.html" data-ajax="/terms">Termos de uso</a></li>
+                    <li class=""><a href="privacy.html" data-ajax="/privacy">Política de Privacidade</a></li>
+                    <li class=""><a href="about" data-ajax="/about">Sobre nós</a></li>
+                    <hr>
+                    <li><a href="contact.html" data-ajax="/contact">Contate-Nos</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col s12 m8 l9">
+            <h2 class="bold">Termos de uso</h2>
+            <div class="dt_terms_content_body">
+                                <h4>1- Write your Terms Of Use here.</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adisdpisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis sdnostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <br>
+                <h4>2- Random title</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>            </div>
+        </div>
+    </div>
+</div>
+<!-- End Terms  -->    </div>
+    <a href="javascript:void(0);" id="ajaxRedirect" style="visibility: hidden;display: none;"></a>
+    <!-- Footer  -->
+    <footer id="footer" class="page_footer">
+        <div class="footer-copyright">
+            <div class="container valign-wrapper">
+                <span>direito autoral © 2019 Luvnest. Todos os direitos reservados.</span>
+				<span class="dt_fotr_spn">
+				<ul class="dt_footer_links">
+					<li><a href="about" data-ajax="/about">Sobre nós</a></li> - 
+					<li><a href="terms.html" data-ajax="/terms">Termos</a></li> -
+                    <li><a href="privacy.html" data-ajax="/privacy">Política de Privacidade</a></li> -
+					<li><a href="contact.html" data-ajax="/contact">Contato</a></li> -
+				</ul>
+                <!-- Dropdown language -->
+<span class="dt_foot_langs">
+	<a class="dropdown-trigger" href="#" data-target="lang_dropdown">Língua <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7,15L12,10L17,15H7Z" /></svg></a>
+	<ul id="lang_dropdown" class="dropdown-content">
+		<li ><a href="termsed62.html?language=arabic">Arabic</a></li>
+		<li ><a href="terms59a8.html?language=english">English</a></li>
+		<li ><a href="termsfb36.html?language=dutch">Dutch</a></li>
+		<li ><a href="terms983d.html?language=french">French</a></li>
+		<li ><a href="terms28d4.html?language=german">German</a></li>
+		<li ><a href="terms6e5a.html?language=italian">Italian</a></li>
+		<li style="background-color: #f1f2f3;"><a href="termsb673.html?language=portuguese">Portuguese</a></li>
+		<li ><a href="termsb57d.html?language=russian">Russian</a></li>
+		<li ><a href="termsad1d.html?language=spanish">Spanish</a></li>
+		<li ><a href="termsac68.html?language=turkish">Turkish</a></li>
+	</ul>
+</span>				</span>
+            </div>
+        </div>
+    </footer>
+<!-- End Footer  -->        		
+	<!-- Scroll to top  -->
+    <a href="javascript:void(0);" class="btn-floating btn-large waves-effect waves-light dt_to_top bg_gradient"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"></path></svg></a>
+    <!-- End Scroll to top  -->
+    <script src="themes/default/assets/js/jquery-2.1.1.min.js" type="text/javascript" id="jquery-2.1.1"/></script><script src="themes/default/assets/js/materialize.min.js" type="text/javascript" id="materialize"/></script><script src="themes/default/assets/js/script.js" type="text/javascript" id="script"/></script><script src="themes/default/assets/js/plugins.js" type="text/javascript" id="plugins"/></script>	    <script>
+    function interest_chipsUpdate(e, data) {
+        var chipsData = M.Chips.getInstance($('.interest_chips')).chipsData;
+        var len = chipsData.length;
+        var chipsValue = "";
+        var i;
+        for (i = 0; i < len; i++) { 
+            chipsValue += chipsData[i].tag + ",";
+        }
+
+        document.getElementsByName("interest")[0].value = chipsValue;
+    }
+    function deleteimage(img){
+        var src = $(img).parent().parent().find('.fancybox-image').attr('src'); // Looks for the *fancyboxed* image
+        var url = window.ajax + '/profile/delete_avater';
+        var formData = new FormData();
+            formData.append("url", src );
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            contentType:false,
+            cache: false,
+            processData:false,
+            success: function(data){
+                if(data.status == 200) {
+                    parent.$.fancybox.close();
+                    $("#ajaxRedirect").attr("data-ajax",'/' + window.loggedin_user);
+                    $("#ajaxRedirect").click();
+                }
+            },
+            error: function (data) {
+                M.toast({html: data.responseJSON.message});
+            },
+        });
+    }
+    function custom_footer_js(){
+                $("#avater_profile_img").fancybox();
+        $.fancybox.defaults.hash = false;
+        $('[data-fancybox="gallery"]').fancybox({
+            closeExisting: false,
+            buttons : [
+                'del',
+                'zoom',
+                'slideShow',
+                'thumbs',
+                'close'
+            ]
+        });
+
+
+        $('.sidenav').sidenav();
+    	$('.parallax').parallax();
+		$('select').formSelect();
+        $(document).ready(function(){
+		    $('.dt_tstm_usr .carousel.carousel-slider,.carousel.carousel-slider').carousel({fullWidth: true,indicators: true});
+        });
+		setInterval(function(){
+			$('.dt_tstm_usr .carousel.carousel-slider').carousel('next');
+		}, 7000);
+        $('.dropdown-trigger').dropdown();
+        $('.modal').modal();
+
+		$('.tooltipped').tooltip();
+		$('.collapsible').collapsible();
+
+        var maxdate = new Date();
+            maxdate.setDate(maxdate.getDate() - 6574);
+
+        // Basic Info Step 2
+        var dt = $('.user_bday').datepicker({
+            yearRange: [1947, 2010],
+            container: 'body',
+            format: 'yyyy-mm-dd',
+            maxDate: maxdate
+        });
+        if(typeof dt[0] !== "undefined") {
+            if (dt[0].value !== '0000-00-00' || dt[0].value !== '') {
+                $('.user_bday').datepicker('setDate', dt[0].value);
+            } else {
+                var d = new Date();
+                d.setDate(d.getDate() - 6574);
+                $('.user_bday').datepicker('setDate', d);
+            }
+        }
+        if (typeof dt[0] !== "undefined" && dt[0].value == '') {
+            var dat = new Date();
+            dat.setDate(dat.getDate() - 6574);
+            $('.datepicker').datepicker('setDate', dat);
+        }
+        // Settings
+		$('.interest_chips').chips({
+			placeholder: 'Insira uma tag e pressione Enter',
+			secondaryPlaceholder: '+ Tag, pressione Enter para adicionar mais',
+			onChipDelete: function (e, data) { interest_chipsUpdate(e, data) },
+        	onChipAdd: function (e, data) { interest_chipsUpdate(e, data) }
+        });
+        if ( $('#interest_entry_profile').length ){
+			var chips = $('#interest_entry_profile').val();
+			var chips_array = chips.split(',');
+			var i;
+			for (i = 0; i < chips_array.length; i++) { 
+				$('.interest_chips').chips('addChip', {tag: chips_array[i]});
+			}
+		}
+    	jQuery(document).ready(function() {jQuery('.custom_fixed_element').theiaStickySidebar({additionalMarginTop: 10});});
+        $("form").submit(function(e) {
+            var form = $(this);
+            var url = window.ajax + form.attr('action');
+            var button_text = form.find(':submit span').text();
+
+            form.find(':submit').addClass( 'disabled' );
+            form.find(':submit span').text( 'Carregando..' );
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form.serialize(),
+                success: function(data){
+                    form.find(':submit').removeClass( 'disabled' );
+                    form.find(':submit span').text( button_text );
+                    if( typeof data.message !== "undefined" ){
+                        form.find( '.alert-danger' ).html( '' ).hide();
+                        form.find( '.alert-success' ).html( data.message ).fadeIn( "fast" );
+                        setTimeout(() => {
+                            form.find( '.alert-success' ).fadeOut( "fast" );
+                        }, 3000);
+                    }else{
+                        form.find( '.alert-danger' ).html( 'Error while submitting form.').fadeIn( "fast" );
+                        form.find( '.alert-success' ).html( '' ).hide();
+                        setTimeout(() => {
+                            form.find( '.alert-danger' ).fadeOut( "fast" );
+                        }, 3000);
+                    }
+                    if( typeof(data.updateDom) !== 'undefined' ){
+                        if( typeof(data.updateDom.selector) !== 'undefined' && typeof(data.updateDom.attributes) !== 'undefined' ){
+                            $.each(data.updateDom.attributes, function(index, value) {
+                                console.log(data.updateDom.selector,index,value);
+                                $(data.updateDom.selector).attr(index,value);
+                            });
+                        }
+                    }
+                    if ( typeof(data.cookies) !== 'undefined' ){
+                        var date = new Date();
+                            date.setTime(date.getTime()+(10 * 365 * 24 * 60 * 60 * 1000 ) );
+                            $.each(data.cookies, function(index, value) {
+                                document.cookie = index + "=" + value + "; expires=" + date.toGMTString() + "; path=/";
+                            });
+                    }
+                    if ( typeof(data.remove_cookies) !== 'undefined' ){
+                        $.each(data.remove_cookies, function(index, value) {
+                            document.cookie = index+"=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+                        });
+                    }
+                    if( typeof(data.url) !== 'undefined' ){
+                        form.find(':submit').addClass( 'disabled' );
+                        setTimeout(() => {
+                            window.location = data.url;
+                        }, 2000);
+                    }
+                    if( typeof(data.ajaxRedirect) !== 'undefined' ){
+                        form.find(':submit').addClass( 'disabled' );
+                        setTimeout(() => {
+                            $("#ajaxRedirect").attr("data-ajax", data.ajaxRedirect);
+                            $("#ajaxRedirect").click();
+                        }, 1000);
+                    }
+                    M.updateTextFields();
+                    $("html, body").animate({ scrollTop: 0 }, 150);
+                },
+                error: function (data) {
+                    form.find( '.alert-success' ).html( '' ).hide();
+                    form.find( '.alert-danger' ).html( data.responseJSON.message ).fadeIn( "fast" );
+                    setTimeout(() => {
+                        form.find( '.alert-danger' ).fadeOut( "fast" );
+                    }, 5000);
+
+                    form.find(':submit').removeClass( 'disabled' );
+                    form.find(':submit span').text( button_text );
+                },
+            });
+
+            e.preventDefault();
+        });
+
+        // stripe
+        (function($){
+            $(function(){
+                var handler = null;
+                $( document ).on( 'click', '#stripe_credit_btn', function(e) {
+                    if( handler !== null ) {
+                        handler.open({
+                            name: 'Luvnest',
+                            description: getDescription(),
+                            currency: 'USD',
+                            amount: getPrice() * 100,
+                            opened: function () {
+                                $('#stripe_credit').addClass('disabled');
+                                $('#stripe_credit').attr('disabled', true);
+                            },
+                            closed: function () {
+                                //document.location = window.site_url + '/credit';
+                                $('#stripe_credit').removeClass('disabled');
+                                $('#stripe_credit').attr('disabled', false);
+                            }
+                        });
+                        e.preventDefault();
+                    }
+                });
+                $( document ).on( 'click', '#stripe_credit', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    if (typeof StripeCheckout == 'undefined'){
+                        $('#stripe_credit').addClass('disabled');
+                        $('#stripe_credit').attr('disabled', true);
+                        var script = document.createElement('script');
+                            script.src = '../checkout.stripe.com/checkout.js';
+                            script.type = 'text/javascript';
+                            script.onload = script.onreadystatechange = function() {
+                                if ( !this.readyState || this.readyState == "loaded" || this.readyState == "complete" ) {
+                                    if (typeof StripeCheckout !== 'undefined'){
+                                        handler = StripeCheckout.configure({
+                                            key: '',
+                                            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                                            locale: 'english',
+                                            token: function (token) {
+                                                $.post(window.ajax + 'stripe/handle', {
+                                                    stripeToken: token.id,
+                                                    description: getDescription(),
+                                                    price: getPrice(),
+                                                    payType: 'credits'
+                                                }, function (data) {
+                                                    if (data.status == 200) {
+                                                        $('#credit_amount').html(data.credit_amount);
+                                                        //document.location = window.site_url + data.location;
+                                                        $("#btnProSuccess").attr("data-ajax", data.location);
+                                                        $("#btnProSuccess").click();
+                                                    } else {
+                                                        $('.modal-body').html('<i class="fa fa-spin fa-spinner"></i> Pagamento Recusado ');
+                                                    }
+                                                });
+                                            }
+                                        });
+                                        $('#stripe_credit_btn').trigger('click');
+                                    }
+                                }
+                            }
+                            let head  = document.getElementsByTagName('head')[0];
+                                head.appendChild(script);
+                    }else{
+                        $('#stripe_credit_btn').trigger('click');
+                    }
+                });
+                $( document ).on( 'click', '#stripe_pro_btn', function(e) {
+                    if( handler !== null ) {
+                        handler.open({
+                            name: 'Luvnest',
+                            description: getDescription(),
+                            currency: 'USD',
+                            amount: getPrice() * 100,
+                            opened: function () {
+                                $('#stripe_pro').addClass('disabled');
+                                $('#stripe_pro').attr('disabled', true);
+                            },
+                            closed: function () {
+                                $('#stripe_pro').removeClass('disabled');
+                                $('#stripe_pro').attr('disabled', false);
+                            }
+                        });
+                        e.preventDefault();
+                    }
+                });
+                $( document ).on( 'click', '#stripe_pro', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    if (typeof StripeCheckout == 'undefined'){
+                        $('#stripe_pro').addClass('disabled');
+                        $('#stripe_pro').attr('disabled', true);
+                        var script = document.createElement('script');
+                        script.src = '../checkout.stripe.com/checkout.js';
+                        script.type = 'text/javascript';
+                        script.onload = script.onreadystatechange = function() {
+                            if ( !this.readyState || this.readyState == "loaded" || this.readyState == "complete" ) {
+                                if (typeof StripeCheckout !== 'undefined'){
+                                    handler = StripeCheckout.configure({
+                                        key: '',
+                                        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                                        locale: 'english',
+                                        token: function (token) {
+                                            $.post(window.ajax + 'stripe/handle', {
+                                                stripeToken: token.id,
+                                                description: getDescription(),
+                                                price: getPrice(),
+                                                payType: 'membership'
+                                            }, function (data) {
+                                                if (data.status == 200) {
+                                                    $("#btnProSuccess").attr("data-ajax", data.location);
+                                                    $("#btnProSuccess").click();
+                                                } else {
+                                                    $('.modal-body').html('<i class="fa fa-spin fa-spinner"></i> Pagamento Recusado ');
+                                                }
+                                            });
+                                        }
+                                    });
+                                    $('#stripe_pro_btn').trigger('click');
+                                }
+                            }
+                        }
+                        let head  = document.getElementsByTagName('head')[0];
+                        head.appendChild(script);
+                    }else{
+                        $('#stripe_pro_btn').trigger('click');
+                    }
+                });
+
+            });
+        })(jQuery);
+    }
+    custom_footer_js();
+    $(window).on("popstate", function (event) {
+        $(window).unbind('popstate');
+        location.reload();
+    });
+
+    </script>    	
+	<script type="text/javascript">
+		$(document).on('click', '.find_matches_cont > .row > .col.l3 .dt_sections [data-ajax]', function() {
+			$('body').removeClass('side_open');
+		});
+		</script>
+
+    
+</body>
+
+<!-- Mirrored from luvnestapp.com/terms?language=portuguese by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 14 Sep 2019 10:54:22 GMT -->
+</html>

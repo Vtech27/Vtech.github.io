@@ -1,0 +1,196 @@
+html {
+    scroll-behavior: smooth;
+}
+div#onesignal-bell-container {
+    visibility: hidden;
+    display: none;
+}
+
+#otp_check_forget_email ,#otp_check_forget_phone{padding-left: 11px;letter-spacing: 41px;border: 0;background-image: linear-gradient(to left, #a1a1a1 70%, rgba(255, 255, 255, 0) 0%);background-position: bottom;background-size: 50px 2px;background-repeat: repeat-x;background-position-x: 35px;width: 220px;min-width: 220px;box-shadow: none;}
+a.disabled { pointer-events: none;}
+#otp_check_phone {padding-left: 11px;letter-spacing: 41px;border: 0;background-image: linear-gradient(to left, #a1a1a1 70%, rgba(255, 255, 255, 0) 0%);background-position: bottom;background-size: 50px 2px;background-repeat: repeat-x;background-position-x: 35px;width: 220px;min-width: 220px;box-shadow: none;}
+
+textarea.materialize-textarea{
+    min-height: 8rem;
+}
+
+
+.ajax-progress {
+    height: 1px;
+    background-color: #d4a6dc !important;
+    margin: 0px !important;
+}
+.ajax-progress .indeterminate {
+    background-color: #9c27b0 !important;
+}
+
+
+.dt_ltst_users .card-content .card-title{
+    white-space: nowrap;
+}
+
+
+#toast-container{
+    z-index: 999999999999;
+}
+#visits_container .col {
+    min-height: 371px !important;
+}
+.chips .input {
+    width: 200px !important;
+}
+
+
+
+.toast {
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    color: #707070;
+    margin: 30px auto 10px;
+    display: block;
+    width: auto;
+    min-width: 100px;
+    height: 34px;
+    line-height: 25px;
+    font-size: 12px;
+    text-transform: capitalize;
+    border-radius: 2em;
+    font-weight:bold ;
+}
+
+.useronline{
+    width: 14px;
+    height: 14px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 21px;
+    border: 2.5px solid #fff;
+}
+
+.lds-facebook {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 35px;
+    top: -13px;
+}
+.lds-facebook div {
+    display: inline-block;
+    position: absolute;
+    left: 6px;
+    width: 13px;
+    background: #fff;
+    animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+    left: 6px;
+    animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+    left: 26px;
+    animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+    left: 45px;
+    animation-delay: 0;
+}
+@keyframes lds-facebook {
+    0% {
+        top: 6px;
+        height: 51px;
+    }
+    50%, 100% {
+        top: 19px;
+        height: 26px;
+    }
+}
+
+
+.lds-heart {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+    transform: rotate(45deg);
+    transform-origin: 32px 32px;
+}
+.lds-heart div {
+    top: 23px;
+    left: 19px;
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #fff;
+    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.lds-heart div:after,
+.lds-heart div:before {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 26px;
+    height: 26px;
+    background: #fff;
+}
+.lds-heart div:before {
+    left: -17px;
+    border-radius: 50% 0 0 50%;
+}
+.lds-heart div:after {
+    top: -17px;
+    border-radius: 50% 50% 0 0;
+}
+@keyframes lds-heart {
+    0% {
+        transform: scale(0.95);
+    }
+    5% {
+        transform: scale(1.1);
+    }
+    39% {
+        transform: scale(0.85);
+    }
+    45% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(0.9);
+    }
+}
+
+
+.dt_ltst_users .dt_home_rand_user .card {
+    min-height: 331px;
+}
+
+.prema{background-color: transparent;text-transform: capitalize;font-size: 14px;border-radius:0;transition: all .15s ease-in-out;padding: 0 5px;margin-left: 10px;margin-right: 10px;color: rgba(0, 0, 0, 0.8);height: 50px;}
+.prema:hover {box-shadow: inset 0 -1.5px #a33596;color: #a33596;}
+.prema {    background-color: #e4982a;
+    background: linear-gradient(-90deg, #efb34e 0%, #e4982a 45%, #e4982a 55%, #efb34e 100%);
+    background-size: 300% 300%;
+    animation: skel_animation 1.7s ease;
+    color: white !important;
+    height: 27px;
+    line-height: 24px;
+    padding: 0 13px;
+    box-shadow: none;
+    position: relative;
+    border-radius: 4px;
+    transform: skewX(-25deg);
+    display: block;
+    margin: 0 auto;
+    width: 100px;}
+.prema span {transform: skewX(25deg);display: block;}
+.prema:hover {animation: skel_animation 1.7s ease infinite;}
+
+.btn_wo{
+    background-color: #f4eeee;
+}
+.btn_social.btn_wo {
+    background-color: #a8383a;
+}
